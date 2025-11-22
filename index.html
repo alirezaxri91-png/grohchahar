@@ -1,103 +1,123 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>شمارش معکوس تا ساعت 21</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700&display=swap');
-    :root{--bg:#0f172a;--card:#0b1220;--accent:#ffd166;}
-    *{box-sizing:border-box}
-    body{
-      margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-      font-family: 'Vazirmatn', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background: linear-gradient(180deg,#071024 0%, #071430 100%);
-      color:#e6eef8;padding:24px;
-    }
-    .wrap{width:100%;max-width:460px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border-radius:14px;padding:22px;text-align:center;box-shadow:0 10px 30px rgba(2,6,23,0.6);}
-    .avatar{width:110px;height:110px;border-radius:50%;overflow:hidden;margin:0 auto 14px;border:4px solid rgba(255,255,255,0.06);}
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    h1{font-size:18px;margin:8px 0 18px;font-weight:700}
-    .timer{display:flex;gap:10px;justify-content:center;margin-bottom:12px}
-    .segment{background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:10px;min-width:70px}
-    .num{font-size:28px;font-weight:700;line-height:1}
-    .label{font-size:11px;color:rgba(255,255,255,0.6);margin-top:6px}
-    .note{font-size:14px;color:#cfe7ff;margin-top:10px}
-    .small{font-size:12px;color:rgba(255,255,255,0.55);margin-top:8px}
-    .zero{opacity:0.85}
-    footer{margin-top:14px;font-size:12px;color:rgba(255,255,255,0.45)}
-    @media (max-width:420px){.avatar{width:90px;height:90px}.segment{min-width:56px}.num{font-size:24px}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>سامانه جلسات</title>
+<style>
+  @font-face {
+    font-family: 'MRT_Beirut';
+    src: url('MRT_Beirut.ttf');
+  }
+  body{
+    margin:0;background:#0fbf8b;font-family:'MRT_Beirut',sans-serif;text-align:center;color:#fff;
+  }
+  .top{
+    background:#006c54;width:100%;padding:40px 0;border-radius:0 0 40px 40px;
+    display:flex;justify-content:center;align-items:center;
+  }
+  .top img{width:180px;border-radius:50%;}
+
+  .btn-box{
+    margin-top:60px;display:flex;justify-content:space-around;padding:0 40px;
+  }
+  .btn{
+    background:#006c54;padding:35px 45px;font-size:28px;border-radius:35px;cursor:pointer;
+    transition:0.2s;
+  }
+  .btn:hover{transform:scale(1.05);}
+
+  #countBox{
+    margin-top:120px;
+    background:#006c54;padding:30px 40px;font-size:30px;border-radius:30px;
+    width:max-content;margin-left:auto;margin-right:auto;cursor:pointer;
+  }
+
+  .footer{margin-top:70px;font-size:22px;background:#006c54;padding:15px 30px;width:max-content;margin:auto;border-radius:20px;}
+
+  /* پنجره لینک جلسات */
+  #linkPanel{
+    display:none;background:#004d3d;padding:25px;border-radius:25px;width:330px;margin:40px auto;
+  }
+  .copyBtn, .goBtn{
+    background:#009b76;padding:14px 22px;border-radius:18px;margin:10px;font-size:20px;cursor:pointer;
+    display:inline-block;
+  }
+  .copyBtn:hover,.goBtn:hover{transform:scale(1.07);}
+
+  /* شمارشگر پاپ-آپ */
+  #timerBox{
+    display:none;background:#004d3d;padding:30px;border-radius:25px;width:360px;margin:40px auto;font-size:28px;
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="avatar" aria-hidden="true">
-      <img src="https://cdn.imgurl.ir/uploads/b50035_1759404615322_1.jpg" alt="عکس بالا">
-    </div>
-    <h1>شمارش معکوس تا ساعت 21 امشب </h1>
 
-    <div class="timer" role="timer" aria-live="polite">
-      <div class="segment">
-        <div id="hours" class="num">00</div>
-        <div class="label">ساعت</div>
-      </div>
-      <div class="segment">
-        <div id="minutes" class="num">00</div>
-        <div class="label">دقیقه</div>
-      </div>
-      <div class="segment">
-        <div id="seconds" class="num">00</div>
-        <div class="label">ثانیه</div>
-      </div>
-    </div>
+<div class="top">
+  <img src="/mnt/data/Picturنe1.png" alt="لوگو" />
+</div>
 
-    <div class="note">تا جلسه امشب (موضوع آقا معلم)</div>
-    <div class="small">اگر ساعت 21 گذشته باشد، زمان به صورت <span class="zero">00:00:00</span> نمایش داده می‌شود.</div>
-    <footer>صفحه را باز نگه دارید تا شمارش به‌صورت زنده کار کند </footer>
-  </div>
+<div class="btn-box">
+  <div class="btn" onclick="showLinks()">لینک جلسات</div>
+  <div class="btn" onclick="showTeacherFile()">فایل آقا معلم</div>
+</div>
 
-  <script>
-    // هدف: امروز ساعت 21:00 محلی
-    function getTargetToday21() {
-      const now = new Date();
-      const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0, 0);
-      return target;
-    }
+<div id="countBox" onclick="showTimer()">شمارشگر معکوس تا شروع جلسه بعدی</div>
 
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
+<!-- پنل لینک‌ها -->
+<div id="linkPanel">
+  <div style="font-size:22px;margin-bottom:15px;">لینک جلسه</div>
+  <div style="word-wrap:break-word;color:#aaffdd">https://engage.shatel.com/rooms/bun-gev-f2f-i2i/join</div>
+  <div class="copyBtn" onclick="copyLink()">کپی لینک</div>
+  <a class="goBtn" href="https://engage.shatel.com/rooms/bun-gev-f2f-i2i/join" target="_blank">ورود</a>
+</div>
 
-    let target = getTargetToday21();
+<!-- شمارشگر -->
+<div id="timerBox">
+  <div id="timerText">00:00:00</div>
+</div>
 
-    function pad(v){return v.toString().padStart(2,'0')}
+<div class="footer">ساخته شده توسط علیرضا حاتمی</div>
 
-    function update() {
-      const now = new Date();
-      let diff = Math.max(0, target - now); // به میلی‌ثانیه
+<script>
+  function showLinks(){
+    document.getElementById('linkPanel').style.display='block';
+    document.getElementById('timerBox').style.display='none';
+  }
 
-      if (diff <= 0) {
-        // اگر الان یا بعد ازِ 21 هست، نمایش صفر و متوقف کن
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-        clearInterval(timer);
-        return;
-      }
+  function showTeacherFile(){
+    alert('فعلا فایلی آپلود نشده');
+  }
 
-      const sec = Math.floor(diff / 1000) % 60;
-      const min = Math.floor(diff / (1000 * 60)) % 60;
-      const hr  = Math.floor(diff / (1000 * 60 * 60));
+  function copyLink(){
+    navigator.clipboard.writeText("https://engage.shatel.com/rooms/bun-gev-f2f-i2i/join");
+    alert('لینک کپی شد');
+  }
 
-      hoursEl.textContent = pad(hr);
-      minutesEl.textContent = pad(min);
-      secondsEl.textContent = pad(sec);
-    }
+  function showTimer(){
+    document.getElementById('timerBox').style.display='block';
+    document.getElementById('linkPanel').style.display='none';
+  }
 
-    // به‌روزرسانی هر 250ms برای روانی بهتر
-    update();
-    const timer = setInterval(update, 250);
-  </script>
+  // شمارشگر تا ۹ امشب
+  const target = new Date();
+  target.setHours(21,0,0,0);
+
+  function updateTimer(){
+    let now = new Date();
+    let diff = target - now;
+    if(diff < 0) diff = 0;
+
+    let h = String(Math.floor(diff/1000/60/60)).padStart(2,'0');
+    let m = String(Math.floor(diff/1000/60)%60).padStart(2,'0');
+    let s = String(Math.floor(diff/1000)%60).padStart(2,'0');
+
+    document.getElementById('timerText').innerText = `${h}:${m}:${s}`;
+  }
+
+  setInterval(updateTimer,500);
+  updateTimer();
+</script>
+
 </body>
 </html>
