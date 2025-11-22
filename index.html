@@ -154,8 +154,31 @@ function saveAdmin(){let n=document.getElementById('adminName').value;let f=docu
 function showAdmin(){let n=localStorage.getItem('adminName');let i=localStorage.getItem('adminImg');let k=localStorage.getItem('adminKey');if(n&&i){let box=document.getElementById('profileBox');box.style.display='flex';document.getElementById('profileName').innerText=n+' ('+k+')';document.getElementById('profileImg').src=i;}}
 showAdmin();
 
-function editProfile(){alert('ویرایش پروفایل به زودی فعال می‌شود');}
+function editProfile(){
+  let box=document.createElement('div');
+  box.style.position='fixed';box.style.top='50%';box.style.left='50%';box.style.transform='translate(-50%,-50%)';
+  box.style.background='#004d3d';box.style.padding='25px';box.style.borderRadius='25px';box.style.width='300px';box.style.textAlign='center';box.style.zIndex='2000';
+  box.innerHTML=`<h3>ویرایش پروفایل</h3>
+    <input id='editName' placeholder='نام جدید' style='width:90%;padding:8px;border-radius:10px;border:none;margin-bottom:10px;'>
+    <input type='file' id='editImg' accept='image/*' style='margin-bottom:10px;'>
+    <button id='saveEditBtn' style='background:#009b76;padding:10px 20px;border-radius:15px;border:none;color:#fff;cursor:pointer;'>ذخیره</button>`;
+  document.body.appendChild(box);
+  document.getElementById('saveEditBtn').onclick=function(){
+    let n=document.getElementById('editName').value;
+    let f=document.getElementById('editImg').files[0];
+    if(n) localStorage.setItem('userName',n);
+    if(f){ let r=new FileReader(); r.onload=function(){localStorage.setItem('userImg',r.result);showProfile();}; r.readAsDataURL(f);} else {showProfile();}
+    box.remove();
+  };
+}
 </script>
 
+<div id="iranClock" style="position:fixed;bottom:10px;left:10px;background:#004d3d;padding:6px 12px;border-radius:10px;font-size:14px;z-index:999;color:white;"></div>
+<script>
+setInterval(()=>{
+ let d=new Date();
+ document.getElementById('iranClock').innerText = d.toLocaleTimeString('fa-IR',{hour12:false});
+},1000);
+</script>
 </body>
 </html>
