@@ -10,7 +10,7 @@
         color:white;text-align:center;padding:20px;
     }
     h2{margin-top:10px;}
-    #postBox{
+    .postBox{
         background:#006c54;padding:12px;border-radius:20px;width:90%;
         margin:20px auto;font-size:18px;
     }
@@ -31,12 +31,12 @@
 
 <h2>وبلاگچه</h2>
 
-<!-- دکمه اضافه پست (فقط اگر لاگین باشد) -->
+<!-- دکمه اضافه پست -->
 <div id="addPostBtn" class="btn" onclick="showAddBox()" style="display:none;">
     نوشتن پست جدید
 </div>
 
-<!-- باکس نوشتن پست -->
+<!-- باکس نوشتن -->
 <div id="addBox">
     <textarea id="postText" placeholder="متن دلخواهت را بنویس..."></textarea>
     <div class="btn" onclick="savePost()">ارسال</div>
@@ -46,7 +46,9 @@
 <div id="posts"></div>
 
 <script>
-// چک کردن ورود کاربر یا مدیر
+// -----------------------------------------------------
+//  بخش ورود / مدیر
+// -----------------------------------------------------
 let user = localStorage.getItem('userName');
 let admin = localStorage.getItem('adminKey');
 
@@ -54,76 +56,52 @@ if(user || admin){
     document.getElementById('addPostBtn').style.display = 'inline-block';
 }
 
-// نمایش فرم ارسال
+// -----------------------------------------------------
+//  نمایش باکس ارسال 
+// -----------------------------------------------------
 function showAddBox(){
     document.getElementById('addBox').style.display = 'block';
 }
 
-// ذخیره پست
+// -----------------------------------------------------
+//  ذخیره پست معمولی
+// -----------------------------------------------------
 function savePost(){
     let t = document.getElementById('postText').value;
     if(!t){ alert('متن خالیه'); return; }
 
-    let posts = JSON.parse(localStorage.getItem('posts') || "[]");
-    posts.push({
-        text: t,
-        author: user ? user : (admin ? "مدیر" : "ناشناس"),
-        time: new Date().toLocaleString('fa-IR')
-    });
-
-    localStorage.setItem('posts', JSON.stringify(posts));
+    addPost(t);
     document.getElementById('postText').value = "";
-    loadPosts();
 }
 
-// بارگذاری پست‌ها
-function loadPosts(){
+// -----------------------------------------------------
+//  افزودن پست (برای همه حالت‌ها)
+// -----------------------------------------------------
+function addPost(text){
     let posts = JSON.parse(localStorage.getItem('posts') || "[]");
-    let box = "";
 
-    posts.reverse().forEach(p=>{
-        box += `
-        <div id="postBox">
-            <b>${p.author}</b> — <small>${p.time}</small>
-            <hr>
-            ${p.text}
-        </div>
-        `;
-    });
+    let writer = user ? user : (admin ? "مدیر" : "ناشناس");
 
-    document.getElementById('posts').innerHTML = box;
-}
-
-loadPosts();
-</script>
-    <script type="module">
-// تابع اضافه کردن متن داخل پرانتز به پست‌ها
-export function addTextInParens(text){
-    if(!text) return;
-
-    let user = localStorage.getItem('userName') || localStorage.getItem('adminKey') ? (localStorage.getItem('userName') || "مدیر") : "ناشناس";
-
-    let posts = JSON.parse(localStorage.getItem('posts') || "[]");
     posts.push({
         text: text,
-        author: user,
+        author: writer,
         time: new Date().toLocaleString('fa-IR')
     });
 
     localStorage.setItem('posts', JSON.stringify(posts));
-
-    // بارگذاری مجدد
     loadPosts();
 }
 
-// تابع بارگذاری پست‌ها
+// -----------------------------------------------------
+//  خواندن پست‌ها
+// -----------------------------------------------------
 function loadPosts(){
     let posts = JSON.parse(localStorage.getItem('posts') || "[]");
     let box = "";
 
     posts.reverse().forEach(p=>{
         box += `
-        <div id="postBox">
+        <div class="postBox">
             <b>${p.author}</b> — <small>${p.time}</small>
             <hr>
             ${p.text}
@@ -135,15 +113,25 @@ function loadPosts(){
 }
 
 loadPosts();
+
+// -----------------------------------------------------
+//  تابع جدید: اضافه کردن متن داخل پرانتز
+// -----------------------------------------------------
+function addTextInParens(text){
+    if(text) addPost(text);
+}
 </script>
-<script type="module">
-import { addTextInParens } from './js/blogMain.js'
 
-addTextInParens("امروز ساعت 4  حضور همه اجباری است!")
+
+    <script>
+addTextInParens("جلسه ساعت 4 برای همه الزامی است!");
 </script>
 
 
-    <script type="module" src="js/blogMain.js"></script>
+<!-- هرجا بخوای پیام بفرستی -->
+<script>
+addTextInParens("امروز ساعت 4 حضور همه اجباری است!");
+</script>
 
 </body>
 </html>
