@@ -96,6 +96,52 @@ function loadPosts(){
 
 loadPosts();
 </script>
+    <script type="module">
+// تابع اضافه کردن متن داخل پرانتز به پست‌ها
+export function addTextInParens(text){
+    if(!text) return;
+
+    let user = localStorage.getItem('userName') || localStorage.getItem('adminKey') ? (localStorage.getItem('userName') || "مدیر") : "ناشناس";
+
+    let posts = JSON.parse(localStorage.getItem('posts') || "[]");
+    posts.push({
+        text: text,
+        author: user,
+        time: new Date().toLocaleString('fa-IR')
+    });
+
+    localStorage.setItem('posts', JSON.stringify(posts));
+
+    // بارگذاری مجدد
+    loadPosts();
+}
+
+// تابع بارگذاری پست‌ها
+function loadPosts(){
+    let posts = JSON.parse(localStorage.getItem('posts') || "[]");
+    let box = "";
+
+    posts.reverse().forEach(p=>{
+        box += `
+        <div id="postBox">
+            <b>${p.author}</b> — <small>${p.time}</small>
+            <hr>
+            ${p.text}
+        </div>
+        `;
+    });
+
+    document.getElementById('posts').innerHTML = box;
+}
+
+loadPosts();
+</script>
+<script type="module">
+import { addTextInParens } from './js/blogMain.js'
+
+addTextInParens("امروز ساعت 4  حضور همه اجباری است!")
+</script>
+
 
     <script type="module" src="js/blogMain.js"></script>
 
