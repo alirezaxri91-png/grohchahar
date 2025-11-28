@@ -4,73 +4,121 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>سایت گروه چهار تلاش</title>
-    <link rel="icon" type="image/png" href="assets/img/گروهکتلا.png">
-
+<link rel="icon" type="image/png" href="assets/img/گروهکتلا.png">
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
 
-body {
+  body {
     margin:0;
     background:#0fbf8b;
     font-family: 'Vazirmatn', sans-serif;
     text-align:center;
     color:#fff;
-}
+  }
 
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
-  body{
-    margin:0;background:#0fbf8b;font-family:'Vazirmatn',sans-serif;text-align:center;color:#fff;
+  .top {
+    background:#006c54;
+    width:100%;
+    padding:20px 0;
+    border-radius:0 0 40px 40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
   }
-  body{
-    margin:0;background:#0fbf8b;font-family:'MRT_Beirut',sans-serif;text-align:center;color:#fff;
-  }
-  .top{background:#006c54;width:100%;padding:20px 0;border-radius:0 0 40px 40px;display:flex;justify-content:center;align-items:center;}
-  .top img{width:120px;border-radius:50%;}
+  .top img { width:120px; border-radius:50%; }
 
-  .btn-box{
-    margin-top:60px;display:flex;justify-content:space-around;padding:0 40px;
+  .btn-box {
+    margin-top:60px;
+    display:flex;
+    justify-content:space-around;
+    padding:0 40px;
   }
-  .btn{
-    background:#006c54;padding:35px 45px;font-size:28px;border-radius:35px;cursor:pointer;
+  .btn {
+    background:#006c54;
+    padding:35px 45px;
+    font-size:28px;
+    border-radius:35px;
+    cursor:pointer;
     transition:0.2s;
+    font-family: 'Vazirmatn', sans-serif;
   }
-  .btn:hover{transform:scale(1.05);}
+  .btn:hover { transform:scale(1.05); }
 
-  #countBox{margin-top:160px;background:#006c54;padding:30px 40px;font-size:30px;border-radius:30px;width:max-content;margin-left:auto;margin-right:auto;cursor:pointer;}
+  #countBox {
+    margin-top:160px;
+    background:#006c54;
+    padding:30px 40px;
+    font-size:30px;
+    border-radius:30px;
+    width:max-content;
+    margin-left:auto;
+    margin-right:auto;
+    cursor:pointer;
+    font-family: 'Vazirmatn', sans-serif;
+  }
 
-  .footer{margin-top:70px;font-size:22px;background:#006c54;padding:15px 30px;width:max-content;margin:auto;border-radius:20px;}
+  .footer {
+    margin-top:70px;
+    font-size:22px;
+    background:#006c54;
+    padding:15px 30px;
+    width:max-content;
+    margin:auto;
+    border-radius:20px;
+    font-family: 'Vazirmatn', sans-serif;
+  }
 
   /* پنجره لینک جلسات */
-  #linkPanel{
-    display:none;background:#004d3d;padding:25px;border-radius:25px;width:330px;margin:40px auto;
+  #linkPanel {
+    display:none;
+    background:#004d3d;
+    padding:25px;
+    border-radius:25px;
+    width:330px;
+    margin:40px auto;
+    font-family: 'Vazirmatn', sans-serif;
   }
-  .copyBtn, .goBtn{
-    background:#009b76;padding:14px 22px;border-radius:18px;margin:10px;font-size:20px;cursor:pointer;
+  .copyBtn, .goBtn {
+    background:#009b76;
+    padding:14px 22px;
+    border-radius:18px;
+    margin:10px;
+    font-size:20px;
+    cursor:pointer;
     display:inline-block;
+    font-family: 'Vazirmatn', sans-serif;
   }
-  .copyBtn:hover,.goBtn:hover{transform:scale(1.07);}
+  .copyBtn:hover, .goBtn:hover { transform:scale(1.07); }
 
   /* شمارشگر پاپ-آپ */
-  #timerBox{
-    display:none;background:#004d3d;padding:30px;border-radius:25px;width:360px;margin:40px auto;font-size:28px;
+  #timerBox {
+    display:none;
+    background:#004d3d;
+    padding:30px;
+    border-radius:25px;
+    width:360px;
+    margin:40px auto;
+    font-size:28px;
+    font-family: 'Vazirmatn', sans-serif;
   }
+
 @media (max-width:600px){
-  .btn-box{flex-direction:column;gap:20px;padding:0 20px;margin-top:40px;}
-  .btn{width:100%;padding:25px 0;font-size:22px;}
-  #countBox{width:90%;font-size:22px;margin-top:60px;}
-  #linkPanel,#timerBox{width:90%;font-size:20px;}
-  .top img{width:90px;}
+  .btn-box { flex-direction:column; gap:20px; padding:0 20px; margin-top:40px; }
+  .btn { width:100%; padding:25px 0; font-size:22px; }
+  #countBox { width:90%; font-size:22px; margin-top:60px; }
+  #linkPanel,#timerBox { width:90%; font-size:20px; }
+  .top img { width:90px; }
 }
 </style>
 </head>
 <body>
-    <div onclick="window.location.href='blog.html'"
+
+<div onclick="window.location.href='blog.html'"
 style="position:fixed;bottom:60px;left:10px;background:#005f48;
 padding:10px 18px;border-radius:15px;cursor:pointer;font-size:16px;
-z-index:999;">
+z-index:999;font-family:'Vazirmatn', sans-serif;">
   وبلاگچه
 </div>
-
 
 <div class="top">
   <img src="https://cdn.imgurl.ir/uploads/b50035_1759404615322_1.jpg" alt="لوگو" />
@@ -81,7 +129,7 @@ z-index:999;">
   <div class="btn" onclick="showTeacherFile()">فایل آقا معلم</div>
 </div>
 
-<div id="countBox" onclick="showTimer()"> شمارشگر معکوسی تا جلسه ی امروز </div>
+<div id="countBox" onclick="showTimer()">شمارشگر معکوسی تا جلسه ی امروز</div>
 
 <!-- پنل لینک‌ها -->
 <div id="linkPanel">
@@ -99,26 +147,11 @@ z-index:999;">
 <div class="footer">ساخته شده توسط علیرضا حاتمی</div>
 
 <script>
-  function showLinks(){
-    document.getElementById('linkPanel').style.display='block';
-    document.getElementById('timerBox').style.display='none';
-  }
+  function showLinks() { document.getElementById('linkPanel').style.display='block'; document.getElementById('timerBox').style.display='none'; }
+  function showTeacherFile() { window.location.href='https://cdn.imgurl.ir/uploads/s36153__.rar'; }
+  function copyLink() { navigator.clipboard.writeText("https://engage.shatel.com/rooms/bun-gev-f2f-i2i/join"); alert('لینک کپی شد'); }
+  function showTimer() { document.getElementById('timerBox').style.display='block'; document.getElementById('linkPanel').style.display='none'; }
 
-  function showTeacherFile(){
-    window.location.href='https://cdn.imgurl.ir/uploads/s36153__.rar';
-  }
-
-  function copyLink(){
-    navigator.clipboard.writeText("https://engage.shatel.com/rooms/bun-gev-f2f-i2i/join");
-    alert('لینک کپی شد');
-  }
-
-  function showTimer(){
-    document.getElementById('timerBox').style.display='block';
-    document.getElementById('linkPanel').style.display='none';
-  }
-
-  // شمارشگر اصلی
   const target = new Date();
   target.setHours(16,0,0,0);
 
@@ -138,9 +171,8 @@ z-index:999;">
   updateTimer();
 </script>
 
-
 <!-- بخش ورود بالا -->
-<div id="topLogin" style="position:fixed;top:10px;left:10px;z-index:999;display:flex;gap:10px;align-items:center;">
+<div id="topLogin" style="position:fixed;top:10px;left:10px;z-index:999;display:flex;gap:10px;align-items:center;font-family:'Vazirmatn', sans-serif;">
   <div onclick="openLogin()" style="background:#005f48;padding:10px 18px;border-radius:15px;cursor:pointer;font-size:18px;">ورود</div>
   <div onclick="openAdmin()" style="background:#004637;padding:10px 18px;border-radius:15px;cursor:pointer;font-size:18px;">ورود مدیر</div>
   <div id="profileBox" style="display:none;align-items:center;gap:10px;">
@@ -151,7 +183,7 @@ z-index:999;">
 </div>
 
 <!-- پنجره ورود کاربر -->
-<div id="loginPanel" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#004d3d;padding:25px;border-radius:25px;width:300px;text-align:center;z-index:1000;">
+<div id="loginPanel" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#004d3d;padding:25px;border-radius:25px;width:300px;text-align:center;z-index:1000;font-family:'Vazirmatn', sans-serif;">
   <h3>ورود</h3>
   <input id="nameInput" placeholder="نام" style="width:90%;padding:8px;border-radius:10px;border:none;margin-bottom:10px;">
   <input type="file" id="imgInput" accept="image/*" style="margin-bottom:15px;">
@@ -159,7 +191,7 @@ z-index:999;">
 </div>
 
 <!-- پنجره ورود مدیر -->
-<div id="adminPanel" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#003a2c;padding:25px;border-radius:25px;width:300px;text-align:center;z-index:1000;">
+<div id="adminPanel" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#003a2c;padding:25px;border-radius:25px;width:300px;text-align:center;z-index:1000;font-family:'Vazirmatn', sans-serif;">
   <h3>ورود مدیر</h3>
   <input id="adminName" placeholder="نام" style="width:90%;padding:8px;border-radius:10px;border:none;margin-bottom:10px;">
   <input type="file" id="adminImg" accept="image/*" style="margin-bottom:10px;">
@@ -168,22 +200,68 @@ z-index:999;">
 </div>
 
 <script>
-// ذخیره و نمایش پروفایل کاربر
-function openLogin(){document.getElementById('loginPanel').style.display='block';}
-function openAdmin(){document.getElementById('adminPanel').style.display='block';}
-function saveUser(){let n=document.getElementById('nameInput').value;let f=document.getElementById('imgInput').files[0];if(!n||!f){alert('نام و عکس الزامیست');return;}let r=new FileReader();r.onload=function(){localStorage.setItem('userName',n);localStorage.setItem('userImg',r.result);showProfile();};r.readAsDataURL(f);document.getElementById('loginPanel').style.display='none';}
-function showProfile(){let n=localStorage.getItem('userName');let i=localStorage.getItem('userImg');if(n&&i){document.getElementById('profileBox').style.display='flex';document.getElementById('profileName').innerText=n;document.getElementById('profileImg').src=i;}}
+function openLogin(){ document.getElementById('loginPanel').style.display='block'; }
+function openAdmin(){ document.getElementById('adminPanel').style.display='block'; }
+
+function saveUser(){
+  let n=document.getElementById('nameInput').value;
+  let f=document.getElementById('imgInput').files[0];
+  if(!n||!f){alert('نام و عکس الزامیست');return;}
+  let r=new FileReader();
+  r.onload=function(){
+    localStorage.setItem('userName',n);
+    localStorage.setItem('userImg',r.result);
+    showProfile();
+  };
+  r.readAsDataURL(f);
+  document.getElementById('loginPanel').style.display='none';
+}
+
+function showProfile(){
+  let n=localStorage.getItem('userName');
+  let i=localStorage.getItem('userImg');
+  if(n&&i){
+    let box=document.getElementById('profileBox');
+    box.style.display='flex';
+    document.getElementById('profileName').innerText=n;
+    document.getElementById('profileImg').src=i;
+  }
+}
 showProfile();
 
-// بخش مدیر
-function saveAdmin(){let n=document.getElementById('adminName').value;let f=document.getElementById('adminImg').files[0];let c=document.getElementById('adminCode').value;if(c!="134891"){alert('کد مدیریت اشتباه است');return;}let r=new FileReader();r.onload=function(){localStorage.setItem('adminName',n);localStorage.setItem('adminImg',r.result);localStorage.setItem('adminKey','hgpcej');showAdmin();};r.readAsDataURL(f);document.getElementById('adminPanel').style.display='none';}
-function showAdmin(){let n=localStorage.getItem('adminName');let i=localStorage.getItem('adminImg');let k=localStorage.getItem('adminKey');if(n&&i){let box=document.getElementById('profileBox');box.style.display='flex';document.getElementById('profileName').innerText=n+' ('+k+')';document.getElementById('profileImg').src=i;}}
+function saveAdmin(){
+  let n=document.getElementById('adminName').value;
+  let f=document.getElementById('adminImg').files[0];
+  let c=document.getElementById('adminCode').value;
+  if(c!="134891"){alert('کد مدیریت اشتباه است');return;}
+  let r=new FileReader();
+  r.onload=function(){
+    localStorage.setItem('adminName',n);
+    localStorage.setItem('adminImg',r.result);
+    localStorage.setItem('adminKey','hgpcej');
+    showAdmin();
+  };
+  r.readAsDataURL(f);
+  document.getElementById('adminPanel').style.display='none';
+}
+
+function showAdmin(){
+  let n=localStorage.getItem('adminName');
+  let i=localStorage.getItem('adminImg');
+  let k=localStorage.getItem('adminKey');
+  if(n&&i){
+    let box=document.getElementById('profileBox');
+    box.style.display='flex';
+    document.getElementById('profileName').innerText=n+' ('+k+')';
+    document.getElementById('profileImg').src=i;
+  }
+}
 showAdmin();
 
 function editProfile(){
   let box=document.createElement('div');
-  box.style.position='fixed';box.style.top='50%';box.style.left='50%';box.style.transform='translate(-50%,-50%)';
-  box.style.background='#004d3d';box.style.padding='25px';box.style.borderRadius='25px';box.style.width='300px';box.style.textAlign='center';box.style.zIndex='2000';
+  box.style.position='fixed'; box.style.top='50%'; box.style.left='50%'; box.style.transform='translate(-50%,-50%)';
+  box.style.background='#004d3d'; box.style.padding='25px'; box.style.borderRadius='25px'; box.style.width='300px'; box.style.textAlign='center'; box.style.zIndex='2000';
   box.innerHTML=`<h3>ویرایش پروفایل</h3>
     <input id='editName' placeholder='نام جدید' style='width:90%;padding:8px;border-radius:10px;border:none;margin-bottom:10px;'>
     <input type='file' id='editImg' accept='image/*' style='margin-bottom:10px;'>
@@ -199,14 +277,13 @@ function editProfile(){
 }
 </script>
 
-<div id="iranClock" style="position:fixed;bottom:10px;left:10px;background:#004d3d;padding:6px 12px;border-radius:10px;font-size:14px;z-index:999;color:white;"></div>
+<div id="iranClock" style="position:fixed;bottom:10px;left:10px;background:#004d3d;padding:6px 12px;border-radius:10px;font-size:14px;z-index:999;color:white;font-family:'Vazirmatn', sans-serif;"></div>
 <script>
 setInterval(()=>{
  let d=new Date();
  document.getElementById('iranClock').innerText = d.toLocaleTimeString('fa-IR',{hour12:false});
 },1000);
-
-  
 </script>
+
 </body>
 </html>
