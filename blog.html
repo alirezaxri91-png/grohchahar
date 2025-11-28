@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وبلاگچه گروه چهار تلاش</title>
+<style>
+    body{
+        margin:0;background:#0fbf8b;font-family:'Vazirmatn',sans-serif;
+        color:white;text-align:center;padding:20px;
+    }
+    h2{margin-top:10px;}
+    #postBox{
+        background:#006c54;padding:12px;border-radius:20px;width:90%;
+        margin:20px auto;font-size:18px;
+    }
+    #addBox{
+        background:#004d3d;padding:20px;border-radius:20px;width:90%;
+        margin:20px auto;display:none;
+    }
+    textarea{
+        width:90%;height:120px;border-radius:10px;border:none;padding:10px;
+    }
+    .btn{
+        background:#009b76;padding:10px 20px;border-radius:15px;
+        margin-top:10px;font-size:18px;cursor:pointer;display:inline-block;
+    }
+</style>
+</head>
+<body>
+
+<h2>وبلاگچه</h2>
+
+<!-- دکمه اضافه پست (فقط اگر لاگین باشد) -->
+<div id="addPostBtn" class="btn" onclick="showAddBox()" style="display:none;">
+    نوشتن پست جدید
+</div>
+
+<!-- باکس نوشتن پست -->
+<div id="addBox">
+    <textarea id="postText" placeholder="متن دلخواهت را بنویس..."></textarea>
+    <div class="btn" onclick="savePost()">ارسال</div>
+</div>
+
+<!-- نمایش پست‌ها -->
+<div id="posts"></div>
+
+<script>
+// چک کردن ورود کاربر یا مدیر
+let user = localStorage.getItem('userName');
+let admin = localStorage.getItem('adminKey');
+
+if(user || admin){
+    document.getElementById('addPostBtn').style.display = 'inline-block';
+}
+
+// نمایش فرم ارسال
+function showAddBox(){
+    document.getElementById('addBox').style.display = 'block';
+}
+
+// ذخیره پست
+function savePost(){
+    let t = document.getElementById('postText').value;
+    if(!t){ alert('متن خالیه'); return; }
+
+    let posts = JSON.parse(localStorage.getItem('posts') || "[]");
+    posts.push({
+        text: t,
+        author: user ? user : (admin ? "مدیر" : "ناشناس"),
+        time: new Date().toLocaleString('fa-IR')
+    });
+
+    localStorage.setItem('posts', JSON.stringify(posts));
+    document.getElementById('postText').value = "";
+    loadPosts();
+}
+
+// بارگذاری پست‌ها
+function loadPosts(){
+    let posts = JSON.parse(localStorage.getItem('posts') || "[]");
+    let box = "";
+
+    posts.reverse().forEach(p=>{
+        box += `
+        <div id="postBox">
+            <b>${p.author}</b> — <small>${p.time}</small>
+            <hr>
+            ${p.text}
+        </div>
+        `;
+    });
+
+    document.getElementById('posts').innerHTML = box;
+}
+
+loadPosts();
+</script>
+
+</body>
+</html>
