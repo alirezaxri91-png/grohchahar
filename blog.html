@@ -3,13 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="assets/img/وبلاگچه1.png">
-
-<title>وبلاگچه خفن</title>
-
-<!-- فونت وزیر -->
+<title>وبلاگچه</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
 body {
     font-family: 'Vazirmatn', sans-serif;
@@ -18,102 +13,37 @@ body {
     color:white;
     text-align:center;
 }
-
-h2 {
-    margin-top:20px;
-    font-size:32px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-p {
-    font-size:16px;
-    margin-bottom:30px;
-}
-
-.container {
-    width:95%;
-    max-width:700px;
-    margin:auto;
-}
-
+h2 { margin-top:20px; font-size:32px; text-shadow:2px 2px 4px rgba(0,0,0,0.5);}
+p { font-size:16px; margin-bottom:30px;}
+.container { width:95%; max-width:700px; margin:auto;}
 input, textarea {
-    width:100%;
-    padding:12px;
-    border-radius:12px;
-    border:none;
-    outline:none;
-    margin-top:10px;
-    background:#004d3d;
-    color:white;
-    font-size:16px;
-    transition:0.3s;
+    width:100%; padding:12px; border-radius:12px; border:none; outline:none;
+    margin-top:10px; background:#004d3d; color:white; font-size:16px; transition:0.3s;
 }
-
-input:focus, textarea:focus {
-    background:#006c54;
-}
-
+input:focus, textarea:focus { background:#006c54;}
 button {
-    padding:10px 20px;
-    border:none;
-    border-radius:12px;
-    background: yellow;
-    color:black;
-    font-weight:bold;
-    font-size:16px;
-    margin-top:10px;
-    cursor:pointer;
-    transition:0.3s;
+    padding:10px 20px; border:none; border-radius:12px; background:yellow; color:black;
+    font-weight:bold; font-size:16px; margin-top:10px; cursor:pointer; transition:0.3s;
 }
-
-button:hover {
-    transform:scale(1.05);
-    background:#ffd700;
-}
-
+button:hover { transform:scale(1.05); background:#ffd700;}
 .post-box {
-    background: rgba(0,77,61,0.9);
-    padding:15px;
-    border-radius:15px;
-    margin-bottom:20px;
-    text-align:right;
-    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    background: rgba(0,77,61,0.9); padding:15px; border-radius:15px;
+    margin-bottom:20px; text-align:right; box-shadow:0 4px 8px rgba(0,0,0,0.3);
     animation:fadeIn 0.5s ease;
 }
-
-.post-box img {
-    width:100%;
-    max-width:500px;
-    border-radius:10px;
-    margin-top:10px;
-}
-
-a.download-link {
-    color:yellow;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-a.download-link:hover { text-decoration:underline; }
-
+.post-box img { width:100%; max-width:500px; border-radius:10px; margin-top:10px;}
+a.download-link { color:yellow; text-decoration:none; font-weight:bold;}
+a.download-link:hover { text-decoration:underline;}
 #adminLogin, #postForm {
-    background: rgba(0,77,61,0.9);
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:30px;
-    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    background: rgba(0,77,61,0.9); padding:20px; border-radius:15px;
+    margin-bottom:30px; box-shadow:0 4px 8px rgba(0,0,0,0.3);
 }
-
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(20px);}
-    to {opacity:1; transform: translateY(0);}
-}
-
+@keyframes fadeIn { from {opacity:0; transform: translateY(20px);} to {opacity:1; transform: translateY(0);} }
 </style>
 </head>
 <body>
 <h2>وبلاگچه خفن گروه چهار تلاش</h2>
-<p>اینجا می‌تونی متن‌ها، عکس‌ها و فایل‌هات رو با دوستانت به اشتراک بزاری 🔥</p>
+<p>تست ارسال پست، بدون مشکل </p>
 
 <div class="container">
 <!-- فرم ورود مدیر -->
@@ -135,88 +65,77 @@ a.download-link:hover { text-decoration:underline; }
 <div id="postsList"></div>
 </div>
 
-<script type="module">
-import { createClient } from "https://esm.sh/@supabase/supabase-js";
-
-// اطلاعات Supabase
-const supabaseUrl = "https://xwibxxrqwcvilojadoig.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aWJ4eHJxd2N2aWxvamFkb2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzMTU3OTEsImV4cCI6MjA3OTg5MTc5MX0.FLzjzpvlVHHtfvxUYBzFlxzKoSK8Hu5vi-3HosG8Izw";
-const supabase = createClient(supabaseUrl, supabaseKey);
+<script>
+// ذخیره پست‌ها روی مرورگر به عنوان دیتابیس موقت
+let posts = JSON.parse(localStorage.getItem("posts") || "[]");
 
 // ورود مدیر
-window.loginAdmin = async function() {
+function loginAdmin() {
     const name = document.getElementById("adminName").value.trim();
     const code = document.getElementById("adminCode").value.trim();
-
-    if(!name || !code) { alert("لطفا نام و کد را وارد کنید"); return; }
-
+    if(!name || !code){ alert("نام و کد را وارد کنید"); return; }
     if(code === "134891") {
         localStorage.setItem("isAdmin","true");
-        localStorage.setItem("profileName", name);
-        document.getElementById("postForm").style.display = "block";
-        document.getElementById("adminLogin").style.display = "none";
-        alert("ورود مدیر موفقیت‌آمیز بود!");
-    } else {
-        alert("کد ورود اشتباه است!");
-    }
+        localStorage.setItem("profileName",name);
+        document.getElementById("postForm").style.display="block";
+        document.getElementById("adminLogin").style.display="none";
+        alert("ورود مدیر موفقیت‌آمیز بود");
+        renderPosts();
+    } else { alert("کد اشتباه است"); }
 }
 
-// نمایش فرم اگر قبلا لاگین شده
-window.addEventListener("load",()=>{
+// بارگذاری صفحه
+window.addEventListener("load", ()=>{
     if(localStorage.getItem("isAdmin")==="true") {
         document.getElementById("postForm").style.display="block";
         document.getElementById("adminLogin").style.display="none";
+        renderPosts();
     }
 });
 
 // ارسال پست
-window.sendPost = async function() {
+function sendPost() {
     const content = document.getElementById("postContent").value.trim();
     const imageURL = document.getElementById("imageURL").value.trim();
     const fileURL = document.getElementById("fileURL").value.trim();
     const author = localStorage.getItem("profileName") || "ناشناس";
+    if(!content){ alert("متن پست خالیه"); return; }
 
-    if(!content) { alert("متن پست خالیه"); return; }
+    posts.unshift({author, content, image_url:imageURL||"", file_url:fileURL||""});
+    localStorage.setItem("posts", JSON.stringify(posts));
 
-    await supabase.from("posts").insert({
-        author, content, image_url:imageURL || null, file_url:fileURL || null
-    });
-
-    // خالی کردن فرم
     document.getElementById("postContent").value="";
     document.getElementById("imageURL").value="";
     document.getElementById("fileURL").value="";
-    
-    loadPosts();
+    renderPosts();
 }
 
-// بارگذاری پست‌ها
-async function loadPosts() {
-    let { data: posts } = await supabase.from("posts").select("*").order("id",{ascending:false});
+// نمایش پست‌ها
+function renderPosts() {
     let html = "";
-    posts.forEach(post=>{
+    posts.forEach((post, index)=>{
         html += `
         <div class="post-box">
             <strong>${post.author}</strong><br><br>
             <p>${post.content}</p>
-            ${post.image_url ? `<img src="${post.image_url}">` : ""}
-            ${post.file_url ? `<br><a class="download-link" href="${post.file_url}" download>دانلود فایل</a>` : ""}
-            ${localStorage.getItem("isAdmin")==="true" ? `<br><br><button onclick="deletePost(${post.id})">حذف</button>` : ""}
+            ${post.image_url? `<img src="${post.image_url}">` : ""}
+            ${post.file_url? `<br><a class="download-link" href="${post.file_url}" download>دانلود فایل</a>` : ""}
+            ${localStorage.getItem("isAdmin")==="true"? `<br><br><button onclick="deletePost(${index})">حذف</button>` : ""}
         </div>`;
     });
     document.getElementById("postsList").innerHTML = html;
 }
 
 // حذف پست
-window.deletePost = async function(id) {
+function deletePost(idx) {
     if(confirm("آیا مطمئنی میخوای حذف بشه؟")){
-        await supabase.from("posts").delete().eq("id",id);
-        loadPosts();
+        posts.splice(idx,1);
+        localStorage.setItem("posts", JSON.stringify(posts));
+        renderPosts();
     }
 }
 
-loadPosts();
-
+renderPosts();
 </script>
 </body>
 </html>
