@@ -306,17 +306,7 @@ const supabaseUrl = "https://xwibxxrqwcvilojadoig.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// نمایش بخش وبلاگچه
-function openBlog() {
-    document.getElementById("blogContainer").style.display = "block";
 
-    let isAdmin = localStorage.getItem("isAdmin");
-    if (isAdmin === "true") {
-        document.getElementById("postForm").style.display = "block";
-    }
-
-    loadPosts();
-}
 
 // ارسال پست
 async function sendPost() {
