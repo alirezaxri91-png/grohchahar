@@ -3,35 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>وبلاگچه گروه چهار تلاش</title>
+
+<title>وبلاگچه</title>
+
 <style>
-    body{
-        margin:0;background:#0fbf8b;font-family:'Vazirmatn',sans-serif;
-        color:white;text-align:center;padding:20px;
+    body {
+        font-family: sans-serif;
+        background: #111;
+        color: white;
+        margin: 0;
+        padding: 15px;
     }
-    h2{margin-top:10px;}
-    .postBox{
-        background:#006c54;padding:12px;border-radius:20px;width:90%;
-        margin:20px auto;font-size:18px;
+
+    .post-box {
+        background: #1d1d1d;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 20px;
     }
-    #addBox{
-        background:#004d3d;padding:20px;border-radius:20px;width:90%;
-        margin:20px auto;display:none;
+
+    textarea, input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        margin-top: 10px;
+        background: #222;
+        color: white;
     }
-    textarea{
-        width:90%;height:120px;border-radius:10px;border:none;padding:10px;
+
+    button {
+        padding: 8px 14px;
+        border: none;
+        background: yellow;
+        color: black;
+        border-radius: 8px;
+        margin-top: 10px;
+        cursor: pointer;
     }
-    .btn{
-        background:#009b76;padding:10px 20px;border-radius:15px;
-        margin-top:10px;font-size:18px;cursor:pointer;display:inline-block;
+
+    img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 10px;
+        margin-top: 10px;
     }
 </style>
+
 </head>
 <body>
 
 <h2>وبلاگچه</h2>
+<p>اینجا می‌تونی متن‌ها و فایل‌هات رو با بقیه به اشتراک بزاری 😊🔥</p>
+
+<!-- فرم ارسال پست (فقط برای مدیر) -->
+<div id="postForm" style="display:none;">
+    <textarea id="postContent" placeholder="متن پست..."></textarea>
+    <input type="text" id="imageURL" placeholder="لینک عکس (اختیاری)">
+    <input type="text" id="fileURL" placeholder="لینک فایل (اختیاری)">
+    <button onclick="sendPost()">ارسال پست</button>
+</div>
+
+<br>
+
+<!-- لیست پست‌ها -->
+<div id="postsList"></div>
 
 
+<!-- اتصال Supabase -->
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+const supabaseUrl = "https://xwibxxrqwcvilojadoig.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// نمایش فرم ارسال پست اگر مدیر باشد
+if (localStorage.getItem("isAdmin") === "true") {
+    document.getElementById("postForm").style.display = "block";
+}
+
+// ارسال پست
+async function sendPost() {
+    const content = document.getElementById("postContent").value;
+    const imageURL = document.getElementById("imageURL").value;
+    const fileURL = document.getElementById("fileURL").value;
+
+    const author = localStorage.getItem("profileName") || "ناشناس";
+
+    await supabase.from("posts").insert({
+        author,
+        content,
+        image_url: imageURL,
+        file_url: fileURL
+    });
+
+    loadPosts();
+}
+
+// نمایش پست‌ها
+async function loadPosts() {
+    let { data: posts } = await supabase
+        .from("posts")
+        .select("*")
+        .order("id", { ascending: false });
+
+    let html = "";
+
+    posts.forEach(post => {
+        html += `
+        <div class="post-box">
+            <strong>${post.author}</strong><br><br>
+            <p>${post.content}</p>
+
+            ${post.image_url ? `<img src="${post.image_url}">` : ""}
+
+            ${post.file_url ? `
+                <br><a href="${post.file_url}" download
+                style="color:yellow;">دانلود فایل</a>` : ""}
+
+            ${localStorage.getItem("isAdmin") === "true" ? `
+                <br><br>
+                <button onclick="deletePost(${post.id})">حذف</button>
+            ` : ""}
+        </div>
+        `;
+    });
+
+    document.getElementById("postsList").innerHTML = html;
+}
+
+// حذف پست
+window.deletePost = async function(id) {
+    await supabase.from("posts").delete().eq("id", id);
+    loadPosts();
+}
+
+loadPosts();
+</script>
 
 </body>
 </html>
