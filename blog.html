@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>وبلاگچه</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
 <style>
     body {
-        font-family: sans-serif;
+        font-family: 'Vazirmatn', sans-serif;
         background: #111;
         color: white;
         margin: 0;
@@ -49,13 +48,31 @@
         border-radius: 10px;
         margin-top: 10px;
     }
-</style>
 
+    #adminLogin {
+        background:#222;
+        padding:15px;
+        border-radius:12px;
+        margin-bottom:20px;
+    }
+
+    #adminLogin input {
+        margin-top:5px;
+    }
+</style>
 </head>
 <body>
 
 <h2>وبلاگچه</h2>
 <p>اینجا می‌تونی متن‌ها و فایل‌هات رو با بقیه به اشتراک بزاری 😊🔥</p>
+
+<!-- فرم ورود مدیر -->
+<div id="adminLogin">
+    <h3>ورود مدیر</h3>
+    <input type="text" id="adminName" placeholder="نام مدیر">
+    <input type="password" id="adminCode" placeholder="کد ورود">
+    <button onclick="loginAdmin()">ورود</button>
+</div>
 
 <!-- فرم ارسال پست (فقط برای مدیر) -->
 <div id="postForm" style="display:none;">
@@ -70,18 +87,25 @@
 <!-- لیست پست‌ها -->
 <div id="postsList"></div>
 
-
-<!-- اتصال Supabase -->
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const supabaseUrl = "https://xwibxxrqwcvilojadoig.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aWJ4eHJxd2N2aWxvamFkb2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzMTU3OTEsImV4cCI6MjA3OTg5MTc5MX0.FLzjzpvlVHHtfvxUYBzFlxzKoSK8Hu5vi-3HosG8Izw";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// نمایش فرم ارسال پست اگر مدیر باشد
-if (localStorage.getItem("isAdmin") === "true") {
-    document.getElementById("postForm").style.display = "block";
+function loginAdmin() {
+    const name = document.getElementById("adminName").value;
+    const code = document.getElementById("adminCode").value;
+    if(code === "134891") {
+        localStorage.setItem("isAdmin","true");
+        localStorage.setItem("profileName",name);
+        document.getElementById("postForm").style.display="block";
+        document.getElementById("adminLogin").style.display="none";
+        alert("ورود موفقیت آمیز بود");
+    } else {
+        alert("کد ورود اشتباه است");
+    }
 }
 
 // ارسال پست
@@ -98,6 +122,10 @@ async function sendPost() {
         image_url: imageURL,
         file_url: fileURL
     });
+
+    document.getElementById("postContent").value = "";
+    document.getElementById("imageURL").value = "";
+    document.getElementById("fileURL").value = "";
 
     loadPosts();
 }
@@ -119,16 +147,10 @@ async function loadPosts() {
 
             ${post.image_url ? `<img src="${post.image_url}">` : ""}
 
-            ${post.file_url ? `
-                <br><a href="${post.file_url}" download
-                style="color:yellow;">دانلود فایل</a>` : ""}
+            ${post.file_url ? `<br><a href="${post.file_url}" download style="color:yellow;">دانلود فایل</a>` : ""}
 
-            ${localStorage.getItem("isAdmin") === "true" ? `
-                <br><br>
-                <button onclick="deletePost(${post.id})">حذف</button>
-            ` : ""}
-        </div>
-        `;
+            ${localStorage.getItem("isAdmin") === "true" ? `<br><br><button onclick="deletePost(${post.id})">حذف</button>` : ""}
+        </div>`;
     });
 
     document.getElementById("postsList").innerHTML = html;
