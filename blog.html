@@ -2,71 +2,118 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="assets/img/وبلاگچه1.png">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>وبلاگچه گروه چهار تلاش</title>
+<title>وبلاگچه خفن</title>
+
+<!-- فونت وزیر -->
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
-
 body {
     font-family: 'Vazirmatn', sans-serif;
-    background: #0fbf8b;
-    color: #fff;
-    margin: 0;
-    padding: 15px;
+    margin:0;
+    background: linear-gradient(135deg, #0fbf8b, #006c54);
+    color:white;
     text-align:center;
 }
 
-h2 { margin-bottom:5px; }
-
-.post-box {
-    background: #006c54;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    text-align:right;
+h2 {
+    margin-top:20px;
+    font-size:32px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-textarea, input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    margin-top: 10px;
-    background: #004d3d;
-    color: white;
+p {
+    font-size:16px;
+    margin-bottom:30px;
+}
+
+.container {
+    width:95%;
+    max-width:700px;
+    margin:auto;
+}
+
+input, textarea {
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    outline:none;
+    margin-top:10px;
+    background:#004d3d;
+    color:white;
+    font-size:16px;
+    transition:0.3s;
+}
+
+input:focus, textarea:focus {
+    background:#006c54;
 }
 
 button {
-    padding: 8px 14px;
-    border: none;
+    padding:10px 20px;
+    border:none;
+    border-radius:12px;
     background: yellow;
-    color: black;
-    border-radius: 8px;
-    margin-top: 10px;
-    cursor: pointer;
+    color:black;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:10px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-img {
-    width: 100%;
-    max-width: 500px;
-    border-radius: 10px;
-    margin-top: 10px;
+button:hover {
+    transform:scale(1.05);
+    background:#ffd700;
 }
 
-#adminLogin, #postForm { margin-top:20px; }
+.post-box {
+    background: rgba(0,77,61,0.9);
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:20px;
+    text-align:right;
+    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    animation:fadeIn 0.5s ease;
+}
 
-a.download-link { color: yellow; text-decoration:none; }
+.post-box img {
+    width:100%;
+    max-width:500px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+a.download-link {
+    color:yellow;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+a.download-link:hover { text-decoration:underline; }
+
+#adminLogin, #postForm {
+    background: rgba(0,77,61,0.9);
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:30px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
 </style>
 </head>
-
 <body>
-<h2>وبلاگچه گروه چهار تلاش</h2>
-<p>اینجا می‌تونی متن‌ها و فایل‌ها و عکس‌هایت را با بقیه به اشتراک بزاری 🔥</p>
+<h2>وبلاگچه خفن گروه چهار تلاش</h2>
+<p>اینجا می‌تونی متن‌ها، عکس‌ها و فایل‌هات رو با دوستانت به اشتراک بزاری 🔥</p>
 
+<div class="container">
 <!-- فرم ورود مدیر -->
 <div id="adminLogin">
     <input type="text" id="adminName" placeholder="نام مدیر">
@@ -84,26 +131,29 @@ a.download-link { color: yellow; text-decoration:none; }
 
 <!-- لیست پست‌ها -->
 <div id="postsList"></div>
+</div>
 
-<!-- اتصال Supabase -->
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
+// اطلاعات Supabase
 const supabaseUrl = "https://xwibxxrqwcvilojadoig.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3aWJ4eHJxd2N2aWxvamFkb2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzMTU3OTEsImV4cCI6MjA3OTg5MTc5MX0.FLzjzpvlVHHtfvxUYBzFlxzKoSK8Hu5vi-3HosG8Izw";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ورود مدیر
 window.loginAdmin = async function() {
-    const name = document.getElementById("adminName").value;
-    const code = document.getElementById("adminCode").value;
+    const name = document.getElementById("adminName").value.trim();
+    const code = document.getElementById("adminCode").value.trim();
+
+    if(!name || !code) { alert("لطفا نام و کد را وارد کنید"); return; }
 
     if(code === "134891") {
         localStorage.setItem("isAdmin","true");
         localStorage.setItem("profileName", name);
         document.getElementById("postForm").style.display = "block";
         document.getElementById("adminLogin").style.display = "none";
-        alert("ورود مدیر موفقیت آمیز بود!");
+        alert("ورود مدیر موفقیت‌آمیز بود!");
     } else {
         alert("کد ورود اشتباه است!");
     }
@@ -119,20 +169,22 @@ window.addEventListener("load",()=>{
 
 // ارسال پست
 window.sendPost = async function() {
-    const content = document.getElementById("postContent").value;
-    const imageURL = document.getElementById("imageURL").value;
-    const fileURL = document.getElementById("fileURL").value;
+    const content = document.getElementById("postContent").value.trim();
+    const imageURL = document.getElementById("imageURL").value.trim();
+    const fileURL = document.getElementById("fileURL").value.trim();
     const author = localStorage.getItem("profileName") || "ناشناس";
 
     if(!content) { alert("متن پست خالیه"); return; }
 
     await supabase.from("posts").insert({
-        author, content, image_url:imageURL, file_url:fileURL
+        author, content, image_url:imageURL || null, file_url:fileURL || null
     });
 
+    // خالی کردن فرم
     document.getElementById("postContent").value="";
     document.getElementById("imageURL").value="";
     document.getElementById("fileURL").value="";
+    
     loadPosts();
 }
 
@@ -155,11 +207,14 @@ async function loadPosts() {
 
 // حذف پست
 window.deletePost = async function(id) {
-    await supabase.from("posts").delete().eq("id",id);
-    loadPosts();
+    if(confirm("آیا مطمئنی میخوای حذف بشه؟")){
+        await supabase.from("posts").delete().eq("id",id);
+        loadPosts();
+    }
 }
 
 loadPosts();
+
 </script>
 </body>
 </html>
