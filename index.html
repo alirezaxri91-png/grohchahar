@@ -4,21 +4,21 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>سایت گروه چهار تلاش</title>
-  <link rel="icon" type="image/png" href="assets/img/گروه4.png">
+  <link rel="icon" type="image/png" href="assets/img/گ4.png">
 <link rel="icon" type="image/png" href="https://cdn.imgurl.ir/uploads/g946398__4.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
 
 body {
   margin:0;
-  background:#e6f0ff; /* آبی خیلی روشن */
+  background:#e6f0ff;
   font-family: 'Vazirmatn', sans-serif;
   text-align:center;
   color:#000;
 }
 
 .top {
-  background:#3399ff; /* آبی پررنگ */
+  background:#3399ff;
   width:100%;
   padding:20px 0;
   border-radius:0 0 40px 40px;
@@ -37,7 +37,7 @@ body {
   padding:0 40px;
 }
 .btn {
-  background:#3399ff; /* آبی */
+  background:#005ce6; /* پررنگ‌تر از قبل */
   padding:35px 45px;
   font-size:28px;
   border-radius:35px;
@@ -48,7 +48,7 @@ body {
 
 #countBox {
   margin-top:160px;
-  background:#66b3ff; /* آبی کم‌رنگ */
+  background:#66b3ff;
   padding:30px 40px;
   font-size:30px;
   border-radius:30px;
@@ -60,14 +60,14 @@ body {
 
 #linkPanel {
   display:none;
-  background:#99ccff; /* آبی خیلی روشن */
+  background:#99ccff;
   padding:25px;
   border-radius:25px;
   width:330px;
   margin:40px auto;
 }
 .copyBtn, .goBtn {
-  background:#3399ff;
+  background:#005ce6; /* پررنگ‌تر */
   padding:14px 22px;
   border-radius:18px;
   margin:10px;
@@ -109,9 +109,10 @@ body {
 #topLogin {
   position:fixed;top:10px;left:10px;z-index:999;display:flex;gap:10px;align-items:center;
 }
-#topLogin div{ cursor:pointer; padding:10px 18px; border-radius:15px; font-size:18px; background:#3399ff; color:white; }
+#topLogin div{ cursor:pointer; padding:10px 18px; border-radius:15px; font-size:18px; background:#005ce6; color:white; }
 #profileBox{ display:none; gap:10px; align-items:center; background:#66b3ff; padding:6px 10px; border-radius:15px; }
 #profileBox img{ width:40px; height:40px; border-radius:50%; object-fit:cover; }
+#adminCodeLabel{ display:block; font-size:14px; color:#fff; margin-top:2px; }
 
 /* ساعت پایین */
 #iranClock { position:fixed;bottom:10px;left:10px;background:#3399ff;padding:6px 12px;border-radius:10px;font-size:14px;z-index:999;color:white; font-family:'Vazirmatn', sans-serif; }
@@ -151,7 +152,6 @@ body {
   <div id="profileBox">
     <img id="profileImg" src="">
     <span id="profileName"></span>
-    <div onclick="editProfile()" style="background:#3399ff;color:white;padding:6px 12px;border-radius:12px;font-size:15px;">ویرایش</div>
   </div>
 </div>
 
@@ -160,7 +160,7 @@ background:#99ccff;padding:25px;border-radius:25px;width:300px;text-align:center
   <h3>ورود</h3>
   <input id="nameInput" placeholder="نام" style="width:90%;padding:8px;border-radius:10px;border:none;margin-bottom:10px;">
   <input type="file" id="imgInput" accept="image/*" style="margin-bottom:15px;">
-  <button onclick="saveUser()" style="background:#3399ff;padding:10px 20px;border-radius:15px;border:none;color:#fff;cursor:pointer;">ذخیره</button>
+  <button onclick="saveUser()" style="background:#005ce6;padding:10px 20px;border-radius:15px;border:none;color:#fff;cursor:pointer;">ذخیره</button>
 </div>
 
 <div id="adminPanel" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
@@ -169,7 +169,7 @@ background:#66b3ff;padding:25px;border-radius:25px;width:300px;text-align:center
   <input id="adminName" placeholder="نام" style="width:90%;padding:8px;border-radius:10px;border:none;margin-bottom:10px;">
   <input type="file" id="adminImg" accept="image/*" style="margin-bottom:10px;">
   <input id="adminCode" placeholder="کد ورود" style="width:90%;padding:8px;border-radius:10px;border:none;margin-bottom:10px;">
-  <button onclick="saveAdmin()" style="background:#3399ff;padding:10px 20px;border-radius:15px;border:none;color:#fff;cursor:pointer;">ورود</button>
+  <button onclick="saveAdmin()" style="background:#005ce6;padding:10px 20px;border-radius:15px;border:none;color:#fff;cursor:pointer;">ورود</button>
 </div>
 
 <script>
@@ -191,6 +191,7 @@ function saveUser(){
   r.onload=function(){
     localStorage.setItem('userName',n);
     localStorage.setItem('userImg',r.result);
+    localStorage.setItem('isAdmin','false');
     showProfile();
   };
   r.readAsDataURL(f);
@@ -216,9 +217,24 @@ function saveAdmin(){
 function showProfile(){
   let n=localStorage.getItem('adminName') || localStorage.getItem('userName');
   let i=localStorage.getItem('adminImg') || localStorage.getItem('userImg');
+  let isAdmin=localStorage.getItem('isAdmin')==='true';
   if(n&&i){
     document.getElementById('profileBox').style.display='flex';
     document.getElementById('profileName').innerText=n;
+    
+    // کد مدیر زیر اسم
+    let old=document.getElementById('adminCodeLabel');
+    if(isAdmin){
+      if(!old){
+        let span=document.createElement('span');
+        span.id='adminCodeLabel';
+        span.innerText='hgpcej';
+        document.getElementById('profileBox').appendChild(span);
+      }
+    }else{
+      if(old) old.remove();
+    }
+    
     document.getElementById('profileImg').src=i;
   }
 }
@@ -227,14 +243,28 @@ showProfile();
 
 function editProfile(){
   let n=prompt("نام جدید:");
-  if(n) { localStorage.setItem('userName',n); showProfile(); }
+  if(n) { 
+    if(localStorage.getItem('isAdmin')==='true'){
+      localStorage.setItem('adminName',n);
+    }else{
+      localStorage.setItem('userName',n);
+    }
+    showProfile(); 
+  }
   let fInput=document.createElement("input");
   fInput.type="file"; fInput.accept="image/*";
   fInput.onchange=e=>{
     let f=e.target.files[0];
     if(f){
       let r=new FileReader();
-      r.onload=function(){ localStorage.setItem('userImg',r.result); showProfile(); };
+      r.onload=function(){ 
+        if(localStorage.getItem('isAdmin')==='true'){
+          localStorage.setItem('adminImg',r.result); 
+        }else{
+          localStorage.setItem('userImg',r.result); 
+        }
+        showProfile(); 
+      };
       r.readAsDataURL(f);
     }
   };
