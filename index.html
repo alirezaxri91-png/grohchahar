@@ -238,9 +238,37 @@ body {
   <div class="copyBtn" onclick="copyLink()">کپی لینک</div>
   <a class="goBtn" href="https://engage.shatel.com/rooms/bun-gev-f2f-i2i/join" target="_blank">ورود</a>
 </div>
+  // تایمر واقعی
+function startCountdown() {
+  // ⬅️ زمان جلسه را اینجا تنظیم کن
+  let targetTime = new Date();
+  targetTime.setHours(21, 0, 0, 0); // 21:00:00
+
+  setInterval(()=> {
+    let now = new Date();
+    let diff = targetTime - now;
+
+    if(diff <= 0){
+      document.getElementById('timerText').innerText = "شروع شد!";
+      return;
+    }
+
+    let h = Math.floor(diff / (1000*60*60));
+    let m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    let s = Math.floor((diff % (1000*60)) / 1000);
+
+    document.getElementById('timerText').innerText =
+      String(h).padStart(2,'0') + ":" +
+      String(m).padStart(2,'0') + ":" +
+      String(s).padStart(2,'0');
+  },1000);
+}
+
+startCountdown();
+
 
 <div id="timerBox">
-  <div id="timerText">19:00:00</div>
+  <div id="timerText">21:00:00</div>
 </div>
 
 <div class="footer">ساخته شده توسط علیرضا حاتمی</div>
