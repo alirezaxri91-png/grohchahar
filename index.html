@@ -7,6 +7,7 @@
 <link rel="icon" type="image/png" href="assets/img/گروه44.png">
 <link rel="apple-touch-icon" sizes="512x512" href="assets/img/گروه44.png">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/img/گروه44.png">
+  
 
 <style>
   @media (max-width:600px){
@@ -115,6 +116,7 @@ body {
   text-align:center;
   color:#000;
 }
+<div onclick="openNewAdmin()">ورود ادمین</div>
 
 .top {
   background:#3399ff;
@@ -212,6 +214,34 @@ body {
 #profileBox{ display:none; gap:10px; align-items:center; background:#66b3ff; padding:6px 10px; border-radius:15px; }
 #profileBox img{ width:40px; height:40px; border-radius:50%; object-fit:cover; }
 #adminCodeLabel{ display:block; font-size:14px; color:#fff; margin-top:2px; }
+  <div id="newAdminPanel" style="
+display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+background:#66b3ff;padding:25px;border-radius:25px;width:300px;
+text-align:center;z-index:1000;
+">
+  <h3>ورود ادمین</h3>
+
+  <button onclick="autoAdmin()" style="
+    background:#005ce6;padding:10px 20px;border:none;color:white;
+    border-radius:15px;cursor:pointer;margin-bottom:15px;
+  ">آیا شما محمد پاکدلان هستید؟</button>
+
+  <input id="newAdminName" placeholder="نام" style="
+    width:90%;padding:8px;border-radius:10px;border:none;
+    margin-bottom:10px;
+  ">
+
+  <input id="newAdminCode" placeholder="کد ورود" style="
+    width:90%;padding:8px;border-radius:10px;border:none;
+    margin-bottom:10px;
+  ">
+
+  <button onclick="saveNewAdmin()" style="
+    background:#005ce6;padding:10px 20px;border:none;color:white;
+    border-radius:15px;cursor:pointer;
+  ">ورود</button>
+</div>
+
 
 /* ساعت پایین */
 #iranClock { position:fixed;bottom:10px;left:10px;background:#3399ff;padding:6px 12px;border-radius:10px;font-size:14px;z-index:999;color:white; font-family:'Vazirmatn', sans-serif; }
